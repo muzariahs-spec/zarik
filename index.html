@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cek Anggota Ekstrakurikuler</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>Cek Anggota Ekstrakurikuler</h2>
+
+    <input id="inputID" type="text" placeholder="Masukkan ID / Nama..." />
+
+    <button onclick="cekAnggota()">Cek</button>
+
+    <div id="hasil" class="hasil-box"></div>
+  </div>
+
+  <script src="data.js"></script>
+  <script>
+    function cekAnggota() {
+      const keyword = document.getElementById("inputID").value.toLowerCase();
+      const hasilBox = document.getElementById("hasil");
+
+      if (!keyword) {
+        hasilBox.innerHTML = "<p class='err'>Input tidak boleh kosong.</p>";
+        return;
+      }
+
+      const found = anggotaEskul.find(a =>
+        a.id.toLowerCase() === keyword ||
+        a.nama.toLowerCase().includes(keyword)
+      );
+
+      if (found) {
+        hasilBox.innerHTML = `
+          <p><strong>Nama:</strong> ${found.nama}</p>
+          <p><strong>ID:</strong> ${found.id}</p>
+          <p><strong>Ekstrakurikuler:</strong> ${found.eskul}</p>
+          <p class="success">Status: Terdaftar ✔️</p>
+        `;
+      } else {
+        hasilBox.innerHTML = `<p class="err">Anggota tidak ditemukan ❌</p>`;
+      }
+    }
+  </script>
+</body>
+</html>
